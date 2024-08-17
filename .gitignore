@@ -1,0 +1,27 @@
+# Dependency directories
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+
+# Compiled files (build artifacts)
+dist/
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# npm debug files
+npm-debug.log*
+
+# Optional npm ignore if you're publishing a package (uncomment if necessary)
+# .npmignore

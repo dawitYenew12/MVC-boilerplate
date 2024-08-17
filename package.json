@@ -1,0 +1,23 @@
+{
+  "start": "nodemon index.js",
+  "name": "mvc-boilerplate",
+  "version": "1.0.0",
+  "description": "This repository provides a clean and scalable Model-View-Controller (MVC) boilerplate structure, suitable for web application development. It is designed to help developers quickly set up the foundation of their applications with a modular and organized architecture.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "http": "^0.0.1-security",
+    "joi": "^17.13.3",
+    "mongoose": "^8.5.3"
+  }
+}

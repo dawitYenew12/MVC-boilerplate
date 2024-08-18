@@ -1,25 +1,14 @@
-import Blog from './../models/blog.model.js';
+import Blog from "./../models/blog.model.js";
+import { catchAsync } from "../utils/catchAsync.js";
 
-const createBlog = async (req, res) => {
-    try {
-        const blogData = req.body
-        await Blog.create(blogData);
-        res.send({ success: true, message: 'Blog created successfully' });
-    } catch (error) {
-        res.end({ error: true,  message: error.message });
-    }
-}
+const createBlog = catchAsync(async (req, res) => {
+  await Blog.create(req.body);
+  res.send({ success: true, message: "Blog created successfully" });
+});
 
-const getBlogs = async (req, res) => {
-    try {
-        const blogs = await Blog.find({});
-        res.json(blogs);
-    } catch (error) {
-        res.end({ error: true,  message: error.message });
-    }
-}
+const getBlogs = catchAsync(async (req, res) => {
+  const blogs = await Blog.find({});
+  res.json(blogs);
+});
 
-export {
-    getBlogs,
-    createBlog,
-}
+export { getBlogs, createBlog };

@@ -4,7 +4,7 @@ import envVarSchema from './../validations/env.validation.js';
 
 const { error, value: envVars } = envVarSchema.validate(process.env);
 if (error) {
-    console.log(error)
+    logger.error(error)
 }
 
 export default {

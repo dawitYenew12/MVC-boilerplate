@@ -19,6 +19,8 @@
     "http": "^0.0.1-security",
     "http-status": "^1.7.4",
     "joi": "^17.13.3",
-    "mongoose": "^8.5.3"
+    "mongoose": "^8.5.3",
+    "morgan": "^1.10.0",
+    "winston": "^3.14.2"
   }
 }

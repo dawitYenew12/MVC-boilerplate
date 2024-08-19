@@ -4,7 +4,10 @@ import ApiError from './utils/ApiError.js';
 import httpStatus from 'http-status';
 import express from 'express';
 const app = express();
+import { morganSucessHandler,morganErrorHandler } from './config/morgan.js';
 
+app.use(morganSucessHandler)
+app.use(morganErrorHandler)
 app.use(express.json());
 app.use(blogRouter);
 app.use((req, res, next) => {

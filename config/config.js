@@ -11,4 +11,9 @@ export default {
     port: envVars.PORT,
     dbUri: envVars.DB_URI,
     env: envVars.NODE_ENV,
+    jwt: {
+        secretKey: envVars.JWT_SECRET_KEY,
+        accessTokenMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
+        refreshTokenDays: envVars.JWT_REFRESS_EXPIRATION_DAYS
+    }
 };

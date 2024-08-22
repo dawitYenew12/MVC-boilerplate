@@ -1,4 +1,4 @@
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import { Strategy, ExtractJwt } from 'passport-jwt';
 import config from './config.js';
 import { tokenTypes } from './token.js';
 import userService from '../services/user.service.js';
@@ -8,9 +8,10 @@ const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 }
 
-export const jwtStrategy = new JwtStrategy(jwtOptions, function (jwt_payLoad, done){
+export const jwtStrategy = new Strategy(jwtOptions, function (jwt_payLoad, done){
     try {
-        if(jwt_payLoad != tokenTypes.ACCESS){
+        if(jwt_payLoad.type != tokenTypes.ACCESS){
+            console.log(jwt_payLoad)
             throw new Error("Invalid token type");
         }
         const user = userService.getUserById(jwt_payLoad.subject);

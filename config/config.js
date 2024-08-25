@@ -15,5 +15,10 @@ export default {
         secretKey: envVars.JWT_SECRET_KEY,
         accessTokenMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
         refreshTokenDays: envVars.JWT_REFRESS_EXPIRATION_DAYS
+    },
+    rateLimit: {
+        maxWrongAttemptsByIPperDay: envVars.MAX_WRONG_ATTEMPTS_BY_IP_PER_DAY,
+        maxConsecutiveFailsByEmailAndIP: envVars.MAX_CONSECUTIVE_FAILS_BY_EMAIL_AND_IP,
+        maxConsecutiveFailsByEmail: envVars.MAX_CONSECUTIVE_FAILS_BY_EMAIL,
     }
 };

@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { passwordValidate } from './custom.password.validation.js';
+import { passwordValidate } from './custom.validation.js';
 
 export const createUserSchema = {
     body: joi.object().keys({

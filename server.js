@@ -7,6 +7,10 @@ import express from 'express';
 import passport from 'passport';
 import { jwtStrategy } from './config/passport.js';
 import { morganSucessHandler, morganErrorHandler } from './config/morgan.js';
+import { xss } from 'express-xss-sanitizer';
+import helmet from 'helmet';
+import config from './config/config.js';
+import mongoSanitize from 'express-mongo-sanitize';
 
 const app = express();
 
@@ -20,8 +24,14 @@ app.use(express.json());
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy); 
 
+// Security: Sanitize request data
+app.use(mongoSanitize())
+app.use(xss());
+app.use(helmet({
+    contentSecurityPolicy: config.cspOptions,
+}));
 // Set up API routes
-app.use(authRouter);  
+app.use(authRouter);   
 app.use(blogRouter);  
 
 // Not found 404

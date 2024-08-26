@@ -6,3 +6,10 @@ export const passwordValidate = ( value, helpers ) => {
     }
     return value
 }
+
+export const objectIdValidate = ( value, helpers ) => {
+    if (!value.match(/^[1-9a-fA-F]{24}$]/)){
+        return helpers.message("'{{#label}}' must be a valid mongo id." );
+    }
+    return value
+}

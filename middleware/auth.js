@@ -2,13 +2,11 @@ import passport from "passport";
 import ApiError from "../utils/ApiError.js";
 import httpStatus from "http-status";
 
-const verifyCallBack = (req, resolve, reject) => (err, user, info) => {
+const verifyCallBack = (req, resolve, reject) => async (err, user, info) => {
   if (err || info || !user) {
-    console.log(err)
     throw new ApiError(httpStatus.UNAUTHORIZED, "Please Authenticate!");
   }
-
-  req.user = user;
+  req.user = (user instanceof Promise) ? await user : user;
   resolve();
 };
 

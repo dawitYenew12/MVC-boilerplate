@@ -15,41 +15,43 @@ import cors from 'cors';
 const app = express();
 
 // Set up logging using morgan
-app.use(morganSucessHandler); 
-app.use(morganErrorHandler); 
+app.use(morganSucessHandler);
+app.use(morganErrorHandler);
 
 app.use(express.json());
 
 // Initialize passport for authentication
 app.use(passport.initialize());
-passport.use('jwt', jwtStrategy); 
+passport.use('jwt', jwtStrategy);
 
 // Security: Sanitize request data
 app.use(xss());
-app.use(helmet({
+app.use(
+  helmet({
     contentSecurityPolicy: config.cspOptions,
-}));
+  }),
+);
 
 app.use(mongoSanitize());
 
-if(config.env === 'production') {
-    app.use(cors({ origin: url }));
-    app.options('*', cors({ origin: url }));
+if (config.env === 'production') {
+  app.use(cors({ origin: url }));
+  app.options('*', cors({ origin: url }));
 } else {
-    app.use(cors());
-    app.options('*', cors());
+  app.use(cors());
+  app.options('*', cors());
 }
 // Set up API routes
-app.use(authRouter);   
-app.use(blogRouter);  
+app.use(authRouter);
+app.use(blogRouter);
 
 // Not found 404
 app.use((req, res, next) => {
-    next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
 });
 
 // Convert errors to ApiError instances and handle them
 app.use(errorConverter); // Convert any error to ApiError
-app.use(errorHandler);   // Handle errors and send responses
+app.use(errorHandler); // Handle errors and send responses
 
 export default app;

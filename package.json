@@ -1,13 +1,13 @@
 {
-  "start": "nodemon index.js",
+  "start": "nodemon src/index.js",
   "name": "mvc-boilerplate",
   "version": "1.0.0",
   "description": "This repository provides a clean and scalable Model-View-Controller (MVC) boilerplate structure, suitable for web application development. It is designed to help developers quickly set up the foundation of their applications with a modular and organized architecture.",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "start": "nodemon src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",

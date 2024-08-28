@@ -8,20 +8,18 @@ export default [
     files: ['**/*.js'],
     plugins: {
       prettier,
+      security,
     },
     rules: {
       'no-console': 'error',
       'no-unused-vars': 'off',
       'no-undef': 'off',
-      'prettier/prettier': 'warn', // Add Prettier rules
-    },
-  },
-  {
-    files: ['**/*.js'],
-    plugins: {
-      security,
-    },
-    rules: {
+      'prettier/prettier': [
+        'warn',
+        {
+          endOfLine: 'auto', // Correct Prettier config for end-of-line
+        },
+      ],
       'security/detect-object-injection': 'off',
     },
   },

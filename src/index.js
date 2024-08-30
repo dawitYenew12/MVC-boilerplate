@@ -3,7 +3,7 @@ import config from './config/config.js';
 import express from 'express';
 import { logger } from './config/logger.js';
 import loader from './loaders/index.js';
-import { configureHandlebars } from './config/handlebars.js';
+import { handlebars } from './loaders/handlebars.js';
 
 function exitHandler(server) {
   if (server) {
@@ -25,7 +25,7 @@ function unExpectedErrorHandler(server) {
 const startServr = async () => {
   const app = express();
   await loader(app);
-  await configureHandlebars(app);
+  await handlebars(app);
   const httpServer = http.createServer(app);
   const server = httpServer.listen(config.port, () => {
     logger.info('server listening on port 3000');

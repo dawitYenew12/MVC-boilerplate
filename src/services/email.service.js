@@ -1,7 +1,4 @@
-import {
-  transporter,
-  renderTemplate,
-} from '../services/email-transporter.service.js';
+import { transporter, renderTemplate } from '../utils/email-transporter.js';
 import config from '../config/config.js';
 import ApiError from '../utils/ApiError.js';
 import httpStatus from 'http-status';

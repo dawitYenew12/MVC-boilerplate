@@ -1,37 +1,25 @@
-import { transporter, renderTemplate } from '../utils/email-transporter.js';
-import config from '../config/config.js';
+import eventEmitter from '../utils/eventEmitter.js';
 import ApiError from '../utils/ApiError.js';
 import httpStatus from 'http-status';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/user.model.js';
 import { logger } from '../config/logger.js';
+import config from '../config/config.js';
 
 export const sendVerificationEmail = async (
   receiverEmail,
   emailVerificationToken,
 ) => {
-  const verificationUrl = `http://localhost:3000/auth/verifyEmail?token=${emailVerificationToken}`;
-  const templateName = 'email_verification';
-  const context = {
-    user: {
-      customName: User.name, // Context for {{user.name}} in the template
-    },
-    verificationUrl, // Context for {{verificationUrl}} in the template
-  };
-  const html = await renderTemplate(templateName, context);
-  logger.info('Email rendered successfully before sending');
-  const mailOptions = {
-    from: `Dawit Yenew <${config.email}>`,
-    to: receiverEmail,
-    subject: 'Email Verification',
-    html,
-  };
-
   try {
-    transporter.sendMail(mailOptions);
+    const verificationUrl = `http://localhost:3000/auth/verifyEmail?token=${emailVerificationToken}`;
+    // Emit an event for sending verification email
+    eventEmitter.emit('signup', { receiverEmail, verificationUrl });
   } catch (error) {
     logger.error(error);
-    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error sending email');
+    throw new ApiError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      'Error scheduling email sending',
+    );
   }
 };
 

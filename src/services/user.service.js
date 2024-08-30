@@ -3,7 +3,6 @@ import ApiError from '../utils/ApiError.js';
 import httpStatus from 'http-status';
 import { generateVerificationToken } from '../services/token.service.js';
 import { sendVerificationEmail } from '../services/email.service.js';
-import { logger } from '../config/logger.js';
 
 export const createUser = async (userBody) => {
   //check if email already exists in database

@@ -31,9 +31,7 @@ export const login = catchAsync(async (req, res) => {
 export const emailVerification = catchAsync(async (req, res) => {
   const token = req.query.token || req.body.token;
   const user = await emailService.verifyEmail(token);
-  logger.info(user);
   if (!user.isVerified) {
-    logger.error('Email verification failed');
     return res
       .status(httpStatus.UNAUTHORIZED)
       .json({ message: 'Email verification failed' });

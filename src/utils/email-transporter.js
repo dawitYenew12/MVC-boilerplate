@@ -42,13 +42,10 @@ export const renderTemplate = async (templateName, context) => {
     `${templateName}.handlebars`,
   );
   try {
-    logger.info(filePath);
     const templateContent = await fs.promises.readFile(filePath, 'utf8');
-    logger.info(templateContent);
     const compiledTemplate = hbs.handlebars.compile(templateContent);
     const renderedHtml = compiledTemplate(context);
 
-    logger.info('Template rendered successfully');
     return renderedHtml;
   } catch (error) {
     logger.error(`Error reading the template file: ${error.message}`);

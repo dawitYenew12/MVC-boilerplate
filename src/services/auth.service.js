@@ -52,6 +52,10 @@ export const loginUser = async (email, password, ipAddress) => {
     await Promise.all(promises);
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
+
+  if (!user.isEmailVerified) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Email is not verified');
+  }
   return user;
 };
 

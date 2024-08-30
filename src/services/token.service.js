@@ -73,7 +73,7 @@ export const generateToken = (
   const payLoad = {
     subject: userId, // The 'subject' field typically represents the user ID
     issueDate: dayjs().unix(), // Issue date as a Unix timestamp
-    expTIme: expires.unix(), // Expiration time as a Unix timestamp
+    expTime: expires.unix(), // Expiration time as a Unix timestamp
     type,
   };
 
@@ -126,10 +126,29 @@ export const generateAuthTokens = async (userId) => {
   };
 };
 
+export const generateVerificationToken = async (userId) => {
+  const verificationTokenExpires = dayjs().add(
+    config.jwt.verificationTokenMiniutes,
+    'minutes',
+  );
+
+  const emailVerificationToken = generateToken(
+    userId,
+    verificationTokenExpires,
+    tokenTypes.VERIFICATION,
+    config.jwt.userVerificationToken,
+  );
+  return {
+    token: emailVerificationToken,
+    expires: verificationTokenExpires.toDate(),
+  };
+};
+
 // export default generateAuthToken;
 
 const tokenService = {
   generateAuthTokens,
+  generateVerificationToken,
   verifyToken,
   saveToken,
   generateToken,

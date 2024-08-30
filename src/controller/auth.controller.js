@@ -4,13 +4,20 @@ import { createUser } from '../services/user.service.js';
 import { generateAuthTokens } from '../services/token.service.js';
 import { loginUser } from '../services/auth.service.js';
 import authService from '../services/auth.service.js';
+import emailService from '../services/email.service.js';
+import { logger } from '../config/logger.js';
 
 export const register = catchAsync(async (req, res) => {
   //create user
-  const user = await createUser(req.body);
+  const createdUser = await createUser(req.body);
   //generate token
-  const tokens = await generateAuthTokens(user.id);
-  res.status(httpStatus.CREATED).send({ user, tokens });
+  const tokens = await generateAuthTokens(createdUser.user.id);
+  res.status(httpStatus.CREATED).json({
+    message: `Sent a verification email to ${createdUser.email}`,
+    user: createdUser.user,
+    verficationToken: createdUser.verificationToken,
+    tokens,
+  });
 });
 
 export const login = catchAsync(async (req, res) => {
@@ -19,6 +26,21 @@ export const login = catchAsync(async (req, res) => {
   //generate token
   const tokens = await generateAuthTokens(user.id);
   res.status(httpStatus.OK).send({ user, tokens });
+});
+
+export const emailVerification = catchAsync(async (req, res) => {
+  const token = req.query.token || req.body.token;
+  const user = await emailService.verifyEmail(token);
+  logger.info(user);
+  if (!user.isVerified) {
+    logger.error('Email verification failed');
+    return res
+      .status(httpStatus.UNAUTHORIZED)
+      .json({ message: 'Email verification failed' });
+  }
+  res
+    .status(httpStatus.OK)
+    .json({ message: 'Email verified successfully', user });
 });
 
 export const refreshToken = catchAsync(async (req, res) => {

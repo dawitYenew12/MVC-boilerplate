@@ -12,9 +12,14 @@ import {
   refreshTokenSchema,
 } from '../validations/auth.validation.js';
 import { loginRouteRateLimit } from '../middleware/authLimiter.js';
+import { emailVerification } from '../controller/auth.controller.js';
 
 router.post('/auth/register', validate(createUserSchema), register);
 router.post('/auth/login', loginRouteRateLimit, validate(loginSchema), login);
 router.post('/auth/refreshToken', validate(refreshTokenSchema), refreshToken);
+router
+  .route('/auth/verifyEmail')
+  .get(emailVerification)
+  .patch(emailVerification);
 
 export default router;

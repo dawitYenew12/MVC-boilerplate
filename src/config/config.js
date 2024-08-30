@@ -9,10 +9,13 @@ export default {
   port: envVars.PORT,
   dbUri: envVars.DB_URI,
   env: envVars.NODE_ENV,
+  email: envVars.EMAIL,
   jwt: {
     secretKey: envVars.JWT_SECRET_KEY,
     accessTokenMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
     refreshTokenDays: envVars.JWT_REFRESS_EXPIRATION_DAYS,
+    verificationTokenMiniutes: envVars.JWT_VERIFICATION_EXPIRATION_MINUTES,
+    userVerificationToken: envVars.VERIFICATION_TOKEN_SECRET_KEY,
   },
   rateLimit: {
     maxWrongAttemptsByIPperDay: envVars.MAX_WRONG_ATTEMPTS_BY_IP_PER_DAY,
@@ -32,4 +35,8 @@ export default {
       upgradeInsecureRequests: [],
     },
   },
+  clientId: envVars.CLIENT_ID,
+  clientSecret: envVars.CLIENT_SECRET,
+  redirectUri: envVars.REDIRECT_URI,
+  refreshToken: envVars.REFRESH_TOKEN,
 };

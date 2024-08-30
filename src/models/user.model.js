@@ -36,6 +36,11 @@ const userSchema = new Schema(
       },
       private: true,
     },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

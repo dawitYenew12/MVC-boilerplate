@@ -5,7 +5,6 @@ import { generateAuthTokens } from '../services/token.service.js';
 import { loginUser } from '../services/auth.service.js';
 import authService from '../services/auth.service.js';
 import emailService from '../services/email.service.js';
-import { logger } from '../config/logger.js';
 
 export const register = catchAsync(async (req, res) => {
   //create user

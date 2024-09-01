@@ -53,7 +53,7 @@ export const loginUser = async (email, password, ipAddress) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
 
-  if (!user.isEmailVerified) {
+  if (!user.isVerified) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email is not verified');
   }
   return user;

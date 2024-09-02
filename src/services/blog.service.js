@@ -1,5 +1,13 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import Blog from './../models/blog.model.js';
-import { logger } from './../config/logger.js';
+import ApiError from '../utils/ApiError.js';
+import httpStatus from 'http-status';
+import { logger } from '../config/logger.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const createBlog = async (reqBody, userId) => {
   await Blog.create({ ...reqBody, createdBy: userId });
@@ -10,8 +18,13 @@ export const getBlogs = async (userId) => {
   return blogs;
 };
 
-export const fileUpload = async (filePath) => {
-  logger.info(`File uploaded successfully at ${filePath}`);
+export const getFileStream = async (filename) => {
+  const filePath = path.join(__dirname, '../../uploads', filename);
+  if (!fs.existsSync(filePath)) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'File not found');
+  }
+  const stream = fs.createReadStream(filePath);
+  return stream;
 };
 
-export default { createBlog, getBlogs };
+export default { createBlog, getBlogs, getFileStream };

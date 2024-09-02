@@ -4,6 +4,7 @@ import {
   getBlogs,
   createBlog,
   uploadFile,
+  getFile,
 } from '../controller/blog.controller.js';
 import { validate } from './../middleware/validate.js';
 import {
@@ -16,5 +17,6 @@ import upload from '../utils/multer.js';
 router.get('/blogs', auth, validate(getBlogSchema), getBlogs);
 router.post('/blog', auth, validate(createBlogSchema), createBlog);
 router.post('/blog/cover-image', auth, upload.single('coverImage'), uploadFile);
+router.get('/blog/cover-image/:fileName', auth, getFile);
 
 export default router;

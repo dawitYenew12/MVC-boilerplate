@@ -1,3 +1,4 @@
+import fs from 'fs';
 import mongooseLoader from './mongoose.js';
 import expressLoader from './express.js';
 import { logger } from '../config/logger.js';
@@ -11,5 +12,10 @@ export default async (app) => {
   logger.info('express app initiated!');
   Object.keys(subscribers).forEach((eventName) => {
     EventEmitter.on(eventName, subscribers[eventName]);
+  });
+  fs.access('uploads', fs.constants.F_OK, async (err) => {
+    if (err) {
+      await fs.promises.mkdir('uploads');
+    }
   });
 };

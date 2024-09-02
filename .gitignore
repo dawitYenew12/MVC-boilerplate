@@ -23,5 +23,8 @@ Thumbs.db
 # npm debug files
 npm-debug.log*
 
+#other files
+/uploads
+
 # Optional npm ignore if you're publishing a package (uncomment if necessary)
 # .npmignore

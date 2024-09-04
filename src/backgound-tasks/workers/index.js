@@ -6,10 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import { logger } from '../../config/logger.js';
 
-const start = async () => {
-  const filename = path.join(__dirname, 'imageProcessor.js');
-  const fileUrl = pathToFileURL(filename);
-  const imageProccessorWorker = new Worker('ImageProcessor', fileUrl, {
+export const createWorker = async (name, filename) => {
+  const processorPath = pathToFileURL(path.join(__dirname, filename));
+  const worker = new Worker(name, processorPath, {
     connection: {
       host: config.redis.host,
       port: config.redis.port,
@@ -17,9 +16,9 @@ const start = async () => {
     autorun: true,
   });
 
-  imageProccessorWorker.on('completed', (job) => {
-    logger.info(`completed job: ${job.id}`);
+  worker.on('completed', (job) => {
+    logger.info(`completed job: ${job.name} Id: ${job.id}`);
   });
 };
 
-export default { start };
+export default { createWorker };

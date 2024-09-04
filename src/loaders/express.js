@@ -12,6 +12,7 @@ import helmet from 'helmet';
 import config from '../config/config.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
+import commentRouter from '../routes/comment.route.js';
 
 export default async (app) => {
   // Set up logging using morgan
@@ -44,6 +45,7 @@ export default async (app) => {
   // Set up API routes
   app.use(authRouter);
   app.use(blogRouter);
+  app.use(commentRouter);
 
   // Not found 404
   app.use((req, res, next) => {

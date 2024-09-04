@@ -1,4 +1,3 @@
-import path from 'path';
 import ApiError from '../../utils/ApiError.js';
 import httpStatus from 'http-status';
 import { processImage } from '../../utils/sharp.js';

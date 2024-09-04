@@ -4,7 +4,6 @@ import { fileURLToPath } from 'url';
 import Blog from './../models/blog.model.js';
 import ApiError from '../utils/ApiError.js';
 import httpStatus from 'http-status';
-import { logger } from '../config/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

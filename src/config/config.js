@@ -39,4 +39,8 @@ export default {
   clientSecret: envVars.CLIENT_SECRET,
   redirectUri: envVars.REDIRECT_URI,
   refreshToken: envVars.REFRESH_TOKEN,
+  redis: {
+    host: envVars.REDIS_HOST,
+    port: envVars.REDIS_PORT,
+  },
 };

@@ -6,19 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import httpStatus from 'http-status';
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const filePath = __dirname + '/../../uploads/';
-    cb(null, filePath);
-  },
-  filename: function (req, file, cb) {
-    const filename = Date.now() + '-' + file.originalname;
-    cb(null, filename);
-  },
-});
-
 export default multer({
-  storage,
   fileFilter: function (req, file, cb) {
     const maxFileSize = 3 * 1024 * 1024;
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {

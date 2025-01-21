@@ -44,3 +44,6 @@ node index
 - Define models in the models/ folder to interact with the database.
 - Use the views/ folder for rendering templates or handling API responses.
 - Add your Joi validation schemas in the validation/ folder and import them into controllers to validate incoming data.
+
+Taken from kalkidan's Udemy course
+  @copy Kal
